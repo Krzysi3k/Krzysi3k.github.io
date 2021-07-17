@@ -91,28 +91,40 @@
 </code></pre></div><p>There are 3 functions in tasks.py: <em>stop_radio()</em>, <em>play_station()</em> and <em>change_volume()</em>
 They are combination of shell scripts, and all of them are executed and handled in separate process thanks to Redis and <a href=https://redislabs.com/ebook/part-2-core-concepts/chapter-6-application-components-in-redis/6-4-task-queues/>tasks queue</a> functionality.</p><p>now let&rsquo;s have a look at our main file:</p><h4 id=apppy>app.py:</h4><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#a6e22e>from</span> <span style=color:#a6e22e>fastapi</span> <span style=color:#66d9ef>import</span> <span style=color:#a6e22e>FastAPI</span>, <span style=color:#a6e22e>Response</span>, <span style=color:#a6e22e>status</span>
 <span style=color:#a6e22e>from</span> <span style=color:#a6e22e>config</span> <span style=color:#66d9ef>import</span> <span style=color:#a6e22e>stations</span>, <span style=color:#a6e22e>media_log</span>, <span style=color:#a6e22e>q</span>, <span style=color:#a6e22e>r</span>
+<span style=color:#a6e22e>from</span> <span style=color:#a6e22e>dataclasses</span> <span style=color:#66d9ef>import</span> <span style=color:#a6e22e>dataclass</span>, <span style=color:#a6e22e>field</span>
 <span style=color:#66d9ef>import</span> <span style=color:#a6e22e>tasks</span>
 <span style=color:#66d9ef>import</span> <span style=color:#a6e22e>subprocess</span>
 <span style=color:#66d9ef>import</span> <span style=color:#a6e22e>re</span>
 
 
-<span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>FastAPI</span>()
+<span style=color:#960050;background-color:#1e0010>@</span><span style=color:#a6e22e>dataclass</span>(<span style=color:#a6e22e>frozen</span><span style=color:#f92672>=</span><span style=color:#a6e22e>True</span>)
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Station</span><span style=color:#f92672>:</span>
+    <span style=color:#a6e22e>uri_name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>str</span>
+    <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>str</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>field</span>(<span style=color:#a6e22e>init</span><span style=color:#f92672>=</span><span style=color:#a6e22e>False</span>)
+    <span style=color:#a6e22e>cmd</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>str</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>field</span>(<span style=color:#a6e22e>init</span><span style=color:#f92672>=</span><span style=color:#a6e22e>False</span>)
+    <span style=color:#a6e22e>app_name</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>str</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>field</span>(<span style=color:#a6e22e>init</span><span style=color:#f92672>=</span><span style=color:#a6e22e>False</span>)
 
-<span style=color:#960050;background-color:#1e0010>@</span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;/stop&#39;</span>)
-<span style=color:#a6e22e>def</span> <span style=color:#a6e22e>stop_radio</span>()<span style=color:#f92672>:</span>
-    <span style=color:#a6e22e>q</span>.<span style=color:#a6e22e>enqueue</span>(<span style=color:#a6e22e>tasks</span>.<span style=color:#a6e22e>stop_radio</span>)
-    <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#39;radio&#39;</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;stopped&#39;</span>}
+    <span style=color:#a6e22e>def</span> <span style=color:#ae81ff>__</span><span style=color:#a6e22e>post_init__</span>(<span style=color:#a6e22e>self</span>)<span style=color:#f92672>:</span>
+        <span style=color:#66d9ef>try</span><span style=color:#f92672>:</span>
+            <span style=color:#a6e22e>object</span>.<span style=color:#ae81ff>__</span><span style=color:#a6e22e>setattr__</span>(<span style=color:#a6e22e>self</span>, <span style=color:#e6db74>&#39;name&#39;</span>, <span style=color:#a6e22e>stations</span>[<span style=color:#a6e22e>self</span>.<span style=color:#a6e22e>uri_name</span>][<span style=color:#e6db74>&#34;name&#34;</span>])
+            <span style=color:#a6e22e>object</span>.<span style=color:#ae81ff>__</span><span style=color:#a6e22e>setattr__</span>(<span style=color:#a6e22e>self</span>, <span style=color:#e6db74>&#39;cmd&#39;</span>, <span style=color:#a6e22e>stations</span>[<span style=color:#a6e22e>self</span>.<span style=color:#a6e22e>uri_name</span>][<span style=color:#e6db74>&#34;cmd&#34;</span>])
+            <span style=color:#a6e22e>object</span>.<span style=color:#ae81ff>__</span><span style=color:#a6e22e>setattr__</span>(<span style=color:#a6e22e>self</span>, <span style=color:#e6db74>&#39;app_name&#39;</span>, <span style=color:#a6e22e>self</span>.<span style=color:#a6e22e>cmd</span>.<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#39; &#39;</span>)[<span style=color:#ae81ff>0</span>])
+        <span style=color:#a6e22e>except</span> <span style=color:#a6e22e>KeyError</span><span style=color:#f92672>:</span>
+            <span style=color:#a6e22e>object</span>.<span style=color:#ae81ff>__</span><span style=color:#a6e22e>setattr__</span>(<span style=color:#a6e22e>self</span>, <span style=color:#e6db74>&#39;name&#39;</span>, <span style=color:#a6e22e>None</span>)
+            <span style=color:#a6e22e>object</span>.<span style=color:#ae81ff>__</span><span style=color:#a6e22e>setattr__</span>(<span style=color:#a6e22e>self</span>, <span style=color:#e6db74>&#39;cmd&#39;</span>, <span style=color:#a6e22e>None</span>)
+            <span style=color:#a6e22e>object</span>.<span style=color:#ae81ff>__</span><span style=color:#a6e22e>setattr__</span>(<span style=color:#a6e22e>self</span>, <span style=color:#e6db74>&#39;app_name&#39;</span>, <span style=color:#a6e22e>None</span>)
+
+
+<span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>FastAPI</span>()
 
 
 <span style=color:#960050;background-color:#1e0010>@</span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;/play/{station}&#39;</span>)
 <span style=color:#a6e22e>def</span> <span style=color:#a6e22e>play_station</span>(<span style=color:#a6e22e>station</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>str</span>, <span style=color:#a6e22e>response</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>Response</span>)<span style=color:#f92672>:</span>
-    <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>station</span> <span style=color:#66d9ef>in</span> <span style=color:#a6e22e>stations</span><span style=color:#f92672>:</span>
-        <span style=color:#a6e22e>cmd</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>stations</span>[<span style=color:#a6e22e>station</span>][<span style=color:#e6db74>&#34;cmd&#34;</span>]
-        <span style=color:#a6e22e>app_name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>cmd</span>.<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#39; &#39;</span>)[<span style=color:#ae81ff>0</span>]
-        <span style=color:#a6e22e>station_name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>stations</span>[<span style=color:#a6e22e>station</span>][<span style=color:#e6db74>&#34;name&#34;</span>]
-        <span style=color:#a6e22e>q</span>.<span style=color:#a6e22e>enqueue</span>(<span style=color:#a6e22e>tasks</span>.<span style=color:#a6e22e>play_station</span>, <span style=color:#a6e22e>cmd</span>, <span style=color:#a6e22e>app_name</span>, <span style=color:#a6e22e>media_log</span>)
-        <span style=color:#a6e22e>r</span>.<span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#39;station&#39;</span>, <span style=color:#a6e22e>station_name</span>)
-        <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#39;playing&#39;</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>station_name</span>}
+    <span style=color:#a6e22e>radio</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>Station</span>(<span style=color:#a6e22e>station</span>)
+    <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>radio</span>.<span style=color:#a6e22e>name</span> <span style=color:#a6e22e>is</span> <span style=color:#a6e22e>not</span> <span style=color:#a6e22e>None</span><span style=color:#f92672>:</span>
+        <span style=color:#a6e22e>q</span>.<span style=color:#a6e22e>enqueue</span>(<span style=color:#a6e22e>tasks</span>.<span style=color:#a6e22e>play_station</span>, <span style=color:#a6e22e>radio</span>.<span style=color:#a6e22e>cmd</span>, <span style=color:#a6e22e>radio</span>.<span style=color:#a6e22e>app_name</span>, <span style=color:#a6e22e>media_log</span>)
+        <span style=color:#a6e22e>r</span>.<span style=color:#a6e22e>set</span>(<span style=color:#e6db74>&#39;station&#39;</span>, <span style=color:#a6e22e>radio</span>.<span style=color:#a6e22e>name</span>)
+        <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#39;playing&#39;</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>radio</span>.<span style=color:#a6e22e>name</span>}
     <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>status_code</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>status</span>.<span style=color:#a6e22e>HTTP_404_NOT_FOUND</span>
     <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#39;playing&#39;</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>False</span>, <span style=color:#e6db74>&#39;station&#39;</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;not found&#39;</span>}
 
@@ -126,15 +138,19 @@ They are combination of shell scripts, and all of them are executed and handled 
     <span style=color:#66d9ef>return</span> { <span style=color:#e6db74>&#39;valid query parameters&#39;</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;up&#39;</span>,<span style=color:#e6db74>&#39;down&#39;</span>,<span style=color:#e6db74>&#39;mute&#39;</span>,<span style=color:#e6db74>&#39;unmute&#39;</span>]}
 
 
+<span style=color:#960050;background-color:#1e0010>@</span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;/stop&#39;</span>)
+<span style=color:#a6e22e>def</span> <span style=color:#a6e22e>stop_radio</span>()<span style=color:#f92672>:</span>
+    <span style=color:#a6e22e>q</span>.<span style=color:#a6e22e>enqueue</span>(<span style=color:#a6e22e>tasks</span>.<span style=color:#a6e22e>stop_radio</span>)
+    <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#39;radio&#39;</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#39;stopped&#39;</span>}
+
+
 <span style=color:#960050;background-color:#1e0010>@</span><span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;/get-title&#39;</span>)
 <span style=color:#a6e22e>def</span> <span style=color:#a6e22e>get_title</span>()<span style=color:#f92672>:</span>
     <span style=color:#a6e22e>cmd</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>f</span><span style=color:#e6db74>&#34;cat {media_log} | grep -a StreamTitle | tail -n1 | cut -d &#39;;&#39; -f1 | cut -d &#39;=&#39; -f2 | cut -d &#39;:&#39; -f2,3,4&#34;</span>
-    <span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#a6e22e>cmd</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>f</span><span style=color:#e6db74>&#34;cat {media_log} | grep -a StreamTitle | tail -n1 | cut -d &#39;=&#39; -f2 | cut -d &#39;:&#39; -f2,3,4&#34;</span>
     <span style=color:#a6e22e>p</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>subprocess</span>.<span style=color:#a6e22e>Popen</span>(<span style=color:#a6e22e>cmd</span>, <span style=color:#a6e22e>shell</span><span style=color:#f92672>=</span><span style=color:#a6e22e>True</span>, <span style=color:#a6e22e>stdout</span><span style=color:#f92672>=</span><span style=color:#a6e22e>subprocess</span>.<span style=color:#a6e22e>PIPE</span>)
     <span style=color:#a6e22e>title</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>p</span>.<span style=color:#a6e22e>stdout</span>.<span style=color:#a6e22e>read</span>().<span style=color:#a6e22e>decode</span>(<span style=color:#e6db74>&#39;utf-8&#39;</span>).<span style=color:#a6e22e>strip</span>()
     <span style=color:#a6e22e>title</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>title</span>.<span style=color:#a6e22e>replace</span>(<span style=color:#e6db74>&#34;&#39;;&#34;</span>,<span style=color:#e6db74>&#34;&#39;&#34;</span>)
     <span style=color:#a6e22e>station</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>r</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#39;station&#39;</span>).<span style=color:#a6e22e>decode</span>(<span style=color:#e6db74>&#39;utf-8&#39;</span>)
-    <span style=color:#a6e22e>print</span>(<span style=color:#a6e22e>title</span>)
     <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>re</span>.<span style=color:#a6e22e>match</span>(<span style=color:#e6db74>&#39;.*[a-zA-Z]+&#39;</span>, <span style=color:#a6e22e>title</span>)<span style=color:#f92672>:</span>
         <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#39;title&#39;</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>title</span>, <span style=color:#e6db74>&#39;station&#39;</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>station</span>}
     <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#39;title&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;unknown&#39;</span>, <span style=color:#e6db74>&#39;station&#39;</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>station</span>}
