@@ -15,13 +15,13 @@
 <meta property="og:url" content="https://krzysi3k.github.io/post/2021/06/fastapi/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://krzysi3k.github.io/images/py-fastapi.jpg"><meta name=twitter:card content="summary_large_image">
+<meta property="og:image" content="https://krzysi3k.github.io/images/2021/06/py-fastapi.jpg"><meta name=twitter:card content="summary_large_image">
 <meta name=twitter:title content="Building microservice in Python | Krzysiek's tech corner">
 <link rel=canonical href=https://krzysi3k.github.io/post/2021/06/fastapi/>
 <meta name=twitter:site content="@https://twitter.com/kvczvstik">
 <meta name=twitter:creator content="@https://twitter.com/kvczvstik">
 <meta name=twitter:description content="Automate your workflow with simple microservice built in Python having an own custom microservice that exposes one or multiple HTTP endpoints is very useful when taking some actions (executing tasks) or serving data from database. As a DevOps engineers we are always trying to automate repeatable tasks in order to achieve the end result, improve productivity and remove human errors to the absolute minimum. Such services are quite popular in an event driven architectures when you want to run specific workload based on an event (HTTP call, new Pull request, logon failure, etc.">
-<meta name=twitter:image content="https://krzysi3k.github.io/images/py-fastapi.jpg">
+<meta name=twitter:image content="https://krzysi3k.github.io/images/2021/06/py-fastapi.jpg">
 <meta property="article:published_time" content="2021-06-17T00:00:00+00:00">
 <meta property="article:updated_time" content="2021-06-17T00:00:00+00:00">
 </head>
@@ -76,7 +76,7 @@ June 17, 2021
 </div>
 </header>
 <div class=article-hero-image id=ArticleImage__Hero>
-<img src=/images/py-fastapi.jpg>
+<img src=/images/2021/06/py-fastapi.jpg>
 </div>
 </div>
 </section>
@@ -288,7 +288,7 @@ They are combination of shell scripts, and all of them are executed and handled 
 <span style=color:#a6e22e>GET</span> <span style=color:#f92672>/</span><span style=color:#a6e22e>change</span><span style=color:#f92672>-</span><span style=color:#a6e22e>volume</span><span style=color:#f92672>/?</span><span style=color:#a6e22e>volume</span><span style=color:#f92672>=</span><span style=color:#a6e22e>unmute</span>
 </code></pre></div><p>What is really nice about FastAPI it the automatic documentation they provide, which requires zero configuration, you can use that documentation also to test your endpoints:
 more information about interactive documentation <a href=https://fastapi.tiangolo.com/#interactive-api-docs>here</a>
-<img src=/images/fastapi-docs.jpg alt="image alt text"></p>
+<img src=/images/2021/06/fastapi-docs.jpg alt="image alt text"></p>
 <h4 id=is-it-stateless-or-stateful>Is it stateless or stateful?</h4>
 <p>Now the application itself does not hold any state in the memory, but we have some functions that will output Stream information from radio station to the logfile: <em>&lsquo;logs/media_log.log&rsquo;</em>, then another task uses shell script and Regular Expression to filter song title and ged rid of unnecessary information, another bit of information that is stored outside of application is the station name itself, that is stored in Redis.<br>
 <strong>/get-title</strong> endpoint receives all of that information and outputs in JSON format:</p>
@@ -311,7 +311,7 @@ more information about interactive documentation <a href=https://fastapi.tiangol
 </code></pre></div><h4 id=preparing-http-requests>Preparing HTTP requests:</h4>
 <p>Now to use that application it is necessary to prepare HTTP requests that you can fire up any time. On pc you can pre-define your urls for instance in Postman or VSCode and by clicking a button you can execute them. But in my case the most convenient way was to prepare HTTP calls on my Android phone. There is many different ways how to do it but I recommend really nice software for Android automation - It&rsquo;s called <a href=https://llamalab.com/automate/>Automate</a><br>
 This is how it looks on my mobile phone:
-<img src=/images/android-fastapi.jpg alt="image alt text"></p>
+<img src=/images/2021/06/android-fastapi.jpg alt="image alt text"></p>
 <h4 id=thats-it>That&rsquo;s it</h4>
 <p>Thanks if you&rsquo;ve read that post till the end. It really means something to me :)<br>
 As always I&rsquo;m sharing code in my github repository: <a href=https://github.com/Krzysi3k/RPI-FastApi-RadioPlayer>https://github.com/Krzysi3k/RPI-FastApi-RadioPlayer</a>
@@ -325,7 +325,7 @@ Have a nice day!</p>
 <a href=/post/2021/06/gh-actions/ class=article-link id=article-link-bigger>
 <div>
 <div class=image-container>
-<img src=/images/CICD-gh-actions.jpg class=article-image>
+<img src=/images/2021/06/CICD-gh-actions.jpg class=article-image>
 </div>
 <div>
 <h2 class=article-title>
@@ -343,7 +343,7 @@ June 15, 2021 · 6 min read
 <a href=/post/2021/05/slack-api/ class=article-link>
 <div>
 <div class=image-container>
-<img src=/images/api.gif class=article-image>
+<img src=/images/2021/05/api.gif class=article-image>
 </div>
 <div>
 <h2 class=article-title>

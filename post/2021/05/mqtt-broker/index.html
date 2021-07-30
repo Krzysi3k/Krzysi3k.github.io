@@ -15,13 +15,13 @@
 <meta property="og:url" content="https://krzysi3k.github.io/post/2021/05/mqtt-broker/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://krzysi3k.github.io/images/mqtt.jpg"><meta name=twitter:card content="summary_large_image">
+<meta property="og:image" content="https://krzysi3k.github.io/images/2021/05/mqtt.jpg"><meta name=twitter:card content="summary_large_image">
 <meta name=twitter:title content="MQTT broker - central point for your home automation | Krzysiek's tech corner">
 <link rel=canonical href=https://krzysi3k.github.io/post/2021/05/mqtt-broker/>
 <meta name=twitter:site content="@https://twitter.com/kvczvstik">
 <meta name=twitter:creator content="@https://twitter.com/kvczvstik">
 <meta name=twitter:description content="MQTT - Lightweight pub/sub message broker MQTT is a standard messaging protocol for IoT devices - it implements publish/subscribe model, which in short is asynchronous communication system that allow to receive any published messages for all devices that are subscribed to the topic. It has vast usage in communication of IoT devices, due to high performance and low bandwidth usage. Most devices sold by different manufactures can be configured to communicate via MQTT or HTTP REST service and at the same time they are hooked to 3rd party IoT platforms like TUYA for instance (in order to access the device from the Internet).">
-<meta name=twitter:image content="https://krzysi3k.github.io/images/mqtt.jpg">
+<meta name=twitter:image content="https://krzysi3k.github.io/images/2021/05/mqtt.jpg">
 <meta property="article:published_time" content="2021-05-11T00:00:00+00:00">
 <meta property="article:updated_time" content="2021-05-11T00:00:00+00:00">
 </head>
@@ -76,7 +76,7 @@ May 11, 2021
 </div>
 </header>
 <div class=article-hero-image id=ArticleImage__Hero>
-<img src=/images/mqtt.jpg>
+<img src=/images/2021/05/mqtt.jpg>
 </div>
 </div>
 </section>
@@ -153,7 +153,7 @@ listener <span style=color:#ae81ff>1883</span> 0.0.0.0
       - <span style=color:#ae81ff>net.ipv4.conf.all.src_valid_mark=1</span>
     <span style=color:#f92672>restart</span>: <span style=color:#ae81ff>unless-stopped</span>
 </code></pre></div><p>as you can see Wireguard is using udp port: 51820. So there is one step required in order to establish VPN connection to your home network - we need to forward this high udp port. Most home routers even those very simple ones are able to forward ports. This is screenshot from my router&rsquo;s port forwarding configuration:
-<img src=/images/router-ports.jpg alt="image alt text">
+<img src=/images/2021/05/router-ports.jpg alt="image alt text">
 The IP address for your device will probably be different, you just want to set ip address of the machine where the MQTT broker and Wireguard containers will be running. Another thing is your external IP - if it&rsquo;s not static then you need to configure dynamic dns. In short it&rsquo;s a web service that will always point to your public ip address even if it was changed recently. I can highly recommend <a href=https://www.duckdns.org/>DuckDNS</a> It&rsquo;s web API hosted on AWS which provides update URL endpoint that you need to call in order to update your public ip address DuckDNS provides various scripts for different platforms. You just need to create an account and you will receive unique url along with TOKEN, then use some of their scripts and you are ready to go.</p>
 <h3 id=python-app>Python app</h3>
 <p>let&rsquo;s have a look on our python app and paho mqtt library - which in my opinion is very straightforward and easy to use. Our app will be responsible for receiving messages from certain topics.
@@ -310,7 +310,7 @@ Have a nice day and happy coding!</p>
 <a href=/post/2021/05/metrics/ class=article-link id=article-link-bigger>
 <div>
 <div class=image-container>
-<img src=/images/metrics.jpg class=article-image>
+<img src=/images/2021/05/metrics.jpg class=article-image>
 </div>
 <div>
 <h2 class=article-title>
@@ -328,7 +328,7 @@ May 5, 2021 · 5 min read
 <a href=/post/2021/05/first-post/ class=article-link>
 <div>
 <div class=image-container>
-<img src=/images/falcon.jpg class=article-image>
+<img src=/images/2021/05/falcon.jpg class=article-image>
 </div>
 <div>
 <h2 class=article-title>

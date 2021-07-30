@@ -17,14 +17,14 @@ this is going to be a follow-up post to the MQTT broker post where I described q
 <meta property="og:url" content="https://krzysi3k.github.io/post/2021/05/slack-api/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://krzysi3k.github.io/images/api.gif"><meta name=twitter:card content="summary_large_image">
+<meta property="og:image" content="https://krzysi3k.github.io/images/2021/05/api.gif"><meta name=twitter:card content="summary_large_image">
 <meta name=twitter:title content="Instant push notifications with Slack Bot API | Krzysiek's tech corner">
 <link rel=canonical href=https://krzysi3k.github.io/post/2021/05/slack-api/>
 <meta name=twitter:site content="@https://twitter.com/kvczvstik">
 <meta name=twitter:creator content="@https://twitter.com/kvczvstik">
 <meta name=twitter:description content="Slack Bot API - push notifications for PC/smartphone Hello,
 this is going to be a follow-up post to the MQTT broker post where I described quite extensively how to handle MQTT messages, but I haven&rsquo;t described how to receive messages on smartphone or PC. Slack is quite popular collaboration tool, it is the main competitor to Microsoft Teams. Besides standard features like calling/messaging/file sharing It also has very rich API for developers and third party applications.">
-<meta name=twitter:image content="https://krzysi3k.github.io/images/api.gif">
+<meta name=twitter:image content="https://krzysi3k.github.io/images/2021/05/api.gif">
 <meta property="article:published_time" content="2021-05-17T00:00:00+00:00">
 <meta property="article:updated_time" content="2021-05-17T00:00:00+00:00">
 </head>
@@ -79,7 +79,7 @@ May 17, 2021
 </div>
 </header>
 <div class=article-hero-image id=ArticleImage__Hero>
-<img src=/images/api.gif>
+<img src=/images/2021/05/api.gif>
 </div>
 </div>
 </section>
@@ -111,12 +111,12 @@ this is going to be a follow-up post to the <a href=/post/2021/05/mqtt-broker/>M
 There is multiple ways to send messages to Slack programmatically - You can use different Web API methods like <em>&lsquo;chat.postMessage&rsquo;</em> or <em>&lsquo;chat.postEphemeral&rsquo;</em> to post temporary message or you can just use <a href=https://api.slack.com/messaging/webhooks>incoming webhooks</a></p>
 <p>Slack API provides many features but in this post I will show you how to send simple message to specific channel</p>
 <h3 id=create-a-bot-app>Create a BOT app</h3>
-<p><img src=/images/slack-features.jpg alt="image alt text"></p>
+<p><img src=/images/2021/05/slack-features.jpg alt="image alt text"></p>
 <p>In order to create messaging BOT you need to navigate to: <a href=https://api.slack.com/>https://api.slack.com/</a> and click <em>create custom app</em> you will also need to install app in your Slack workspace and assign permissions. My application has 2 features installed - <em><strong>Incoming webhooks</strong></em> and <em><strong>Bot</strong></em>. But you can create more sophisticated solutions which supports for example <em><strong>Slash Commands</strong></em>.
 To organize your messages that will be send out by your Bot application you can create multiple channels for example based on the topic or type of messages. In my case I&rsquo;m using only one channel: <strong>#smart-home</strong> which is a dedicated channel to receive different messages from different devices.</p>
 <h4 id=desktop-client>Desktop client</h4>
 <p>Once your application is ready the last step is to add application directly from Slack client app (I&rsquo;m using <a href=https://community.chocolatey.org/packages/slack>Slack for Windows</a> but there are versions for Linux and MacOS as well) I couldn&rsquo;t find this step in official documentation but someone described that on Reddit. It&rsquo;s very straightforward - in your desktop app open channel then click <strong>bolt</strong> icon on the bottom and then choose <strong>add apps to this channel</strong> and then you should be able to choose newly created app.</p>
-<p><img src=/images/slack-client.jpg alt="image alt text"></p>
+<p><img src=/images/2021/05/slack-client.jpg alt="image alt text"></p>
 <p>Now you you can invoke your application by sending HTTP call. First you need to create headers with Content type and Authorization token and use http endpoint: <a href=https://slack.com/api/chat.postMessage>https://slack.com/api/chat.postMessage</a> Below there is Python code that is configured to send messages to my <strong>#smart-home</strong> channel: (this code is a part of MQTT project that I have described in <a href=/post/2021/05/mqtt-broker/>this</a> post )</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>requests</span>
 <span style=color:#a6e22e>from</span> <span style=color:#a6e22e>datetime</span> <span style=color:#66d9ef>import</span> <span style=color:#a6e22e>datetime</span>
@@ -147,7 +147,7 @@ That was super quick post about basics of Slack API, there are lots of possibili
 <a href=/post/2021/05/mqtt-broker/ class=article-link id=article-link-bigger>
 <div>
 <div class=image-container>
-<img src=/images/mqtt.jpg class=article-image>
+<img src=/images/2021/05/mqtt.jpg class=article-image>
 </div>
 <div>
 <h2 class=article-title>
@@ -165,7 +165,7 @@ May 11, 2021 · 8 min read
 <a href=/post/2021/05/metrics/ class=article-link>
 <div>
 <div class=image-container>
-<img src=/images/metrics.jpg class=article-image>
+<img src=/images/2021/05/metrics.jpg class=article-image>
 </div>
 <div>
 <h2 class=article-title>

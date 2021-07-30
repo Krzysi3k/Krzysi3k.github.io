@@ -17,14 +17,14 @@ Monolith vs Microservices Now I need to mention that I have been working with di
 <meta property="og:url" content="https://krzysi3k.github.io/post/2021/05/metrics/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://krzysi3k.github.io/images/metrics.jpg"><meta name=twitter:card content="summary_large_image">
+<meta property="og:image" content="https://krzysi3k.github.io/images/2021/05/metrics.jpg"><meta name=twitter:card content="summary_large_image">
 <meta name=twitter:title content="My favorite metrics monitoring stack | Krzysiek's tech corner">
 <link rel=canonical href=https://krzysi3k.github.io/post/2021/05/metrics/>
 <meta name=twitter:site content="@https://twitter.com/kvczvstik">
 <meta name=twitter:creator content="@https://twitter.com/kvczvstik">
 <meta name=twitter:description content="If you want to build monitoring for your infrastructure/applications + you want to have proper visualization then you have multiple options. I can see that there is more and more comprehensive tools on the market that allows you to implement end-to-end monitoring for your infra and applications.
 Monolith vs Microservices Now I need to mention that I have been working with different tools including very big monolith software like SCOM (System Center Operations Manager) It is quite powerful solution from Microsoft that is mostly used in On-Prem environments, it is capable to monitor different OS types (Linux/Windows/AIX) and can run custom workloads and scripts written in various languages - powershell, bash, perl etc, additionally there are ready to use Management Packs for some specific solutions like SharePoint for instance.">
-<meta name=twitter:image content="https://krzysi3k.github.io/images/metrics.jpg">
+<meta name=twitter:image content="https://krzysi3k.github.io/images/2021/05/metrics.jpg">
 <meta property="article:published_time" content="2021-05-05T00:00:00+00:00">
 <meta property="article:updated_time" content="2021-05-05T00:00:00+00:00">
 </head>
@@ -79,7 +79,7 @@ May 5, 2021
 </div>
 </header>
 <div class=article-hero-image id=ArticleImage__Hero>
-<img src=/images/metrics.jpg>
+<img src=/images/2021/05/metrics.jpg>
 </div>
 </div>
 </section>
@@ -207,11 +207,11 @@ please note that we are creating additional field <strong>currently_infected</st
     <span style=color:#f92672>name</span>: <span style=color:#ae81ff>monitoring</span>
 </code></pre></div><h3 id=lets-run-the-stack>Let&rsquo;s run the stack!</h3>
 <p>I&rsquo;m running this stack in my Raspberry Pi 4 which is not as powerful as a beefy servers in your datacenter, but it is fast enough to do the job. As I&rsquo;m writing this post our datasource CSV file contains more than 92000 lines, let&rsquo;s see how fast we can download, transform and load it into InfluxDB.</p>
-<p><img src=/images/collector_logs.jpg alt="image alt text"></p>
+<p><img src=/images/2021/05/collector_logs.jpg alt="image alt text"></p>
 <p>as you can see it took around 16 seconds in total to download, transform and load data, not bad if you consider that it all happened in tiny raspberry pi board.
 Finally if you open Grafana you will be able to create new dashboard based on covid metrics.
 I just did the one below in less than 2 minutes:</p>
-<p><img src=/images/grafana-dash.jpg alt="image alt text"></p>
+<p><img src=/images/2021/05/grafana-dash.jpg alt="image alt text"></p>
 <p>That&rsquo;s it, I hope you find this post interesting, this is repository that contain all the configuration files and scripts: <a href=https://github.com/Krzysi3k/covid19-metrics>https://github.com/Krzysi3k/covid19-metrics</a> so you can play with it.</p>
 </article>
 <section id=articleNext class="section nartrow">
@@ -222,7 +222,7 @@ I just did the one below in less than 2 minutes:</p>
 <a href=/post/2021/05/first-post/ class=article-link id=article-link-bigger>
 <div>
 <div class=image-container>
-<img src=/images/falcon.jpg class=article-image>
+<img src=/images/2021/05/falcon.jpg class=article-image>
 </div>
 <div>
 <h2 class=article-title>
@@ -240,7 +240,7 @@ May 1, 2021 · 1 min read
 <a href=/post/2021/06/fastapi/ class=article-link>
 <div>
 <div class=image-container>
-<img src=/images/py-fastapi.jpg class=article-image>
+<img src=/images/2021/06/py-fastapi.jpg class=article-image>
 </div>
 <div>
 <h2 class=article-title>
