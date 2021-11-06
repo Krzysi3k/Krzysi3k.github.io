@@ -196,7 +196,7 @@ this is folder structure for our app:</p>
 <span style=color:#a6e22e>def</span> <span style=color:#a6e22e>on_message</span>(<span style=color:#a6e22e>client</span>, <span style=color:#a6e22e>userdata</span>, <span style=color:#a6e22e>msg</span>)<span style=color:#f92672>:</span>
     <span style=color:#a6e22e>received_msg</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>payload</span>.<span style=color:#a6e22e>decode</span>()
     <span style=color:#66d9ef>try</span><span style=color:#f92672>:</span>
-        <span style=color:#ae81ff>_</span>, <span style=color:#a6e22e>device_name</span>, <span style=color:#a6e22e>func_name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>topic</span>.<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#39;/&#39;</span>)
+        <span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>device_name</span>, <span style=color:#a6e22e>func_name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>topic</span>.<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#39;/&#39;</span>)
         <span style=color:#a6e22e>obj_attr</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>getattr</span>(<span style=color:#a6e22e>tele_mqtt_tasks</span>, <span style=color:#a6e22e>func_name</span>)
         <span style=color:#a6e22e>func</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>obj_attr</span>.<span style=color:#a6e22e>get</span>(<span style=color:#a6e22e>device_name</span>, <span style=color:#a6e22e>None</span>)
         <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>func</span> <span style=color:#a6e22e>is</span> <span style=color:#a6e22e>not</span> <span style=color:#a6e22e>None</span><span style=color:#f92672>:</span>
@@ -214,7 +214,7 @@ this is folder structure for our app:</p>
     <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>client</span>
 
 
-<span style=color:#66d9ef>if</span> <span style=color:#ae81ff>__</span><span style=color:#a6e22e>name__</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span><span style=color:#f92672>:</span>
+<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>__name__</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span><span style=color:#f92672>:</span>
     <span style=color:#a6e22e>client</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>make_client</span>()
     <span style=color:#a6e22e>client</span>.<span style=color:#a6e22e>loop_forever</span>()
 </code></pre></div><p>as you can see handler is subscribing: <strong>tele/+/+</strong><br>
