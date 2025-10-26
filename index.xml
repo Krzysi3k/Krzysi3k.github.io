@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Krzysiek's tech corner</title><link>https://krzysi3k.github.io/</link><description>Recent content on Krzysiek's tech corner</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 25 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://krzysi3k.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian + CLI with RAG</title><link>https://krzysi3k.github.io/post/2025/obsidian-with-rag/</link><pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate><guid>https://krzysi3k.github.io/post/2025/obsidian-with-rag/</guid><description>&lt;h4 id="ㅤ">ㅤ&lt;/h4>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Krzysiek's tech corner</title><link>https://krzysi3k.github.io/</link><description>Recent content on Krzysiek's tech corner</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 26 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://krzysi3k.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian + Codex CLI and MCP server</title><link>https://krzysi3k.github.io/post/2025/obsidian-with-mcp/</link><pubDate>Sun, 26 Oct 2025 00:00:00 +0000</pubDate><guid>https://krzysi3k.github.io/post/2025/obsidian-with-mcp/</guid><description>&lt;h4 id="ㅤ">ㅤ&lt;/h4>
+&lt;h4 id="ㅤ-1">ㅤ&lt;/h4>
+&lt;h2 id="manage-obsidian-docs-using-mcp-server-and-codex-cli">Manage Obsidian docs using MCP server and Codex CLI&lt;/h2>
+&lt;h3 id="what-is-mcp-brief-overview">What is MCP brief overview&lt;/h3>
+&lt;p>Model Context Protocol (MCP) is an open standard developed by Anthropic that enables AI assistants to securely connect to and interact with external data sources and tools in real-time.
+MCP acts as a bridge between AI models and various external systems, allowing the AI to:&lt;/p>
+&lt;ul>
+&lt;li>Access live data from databases, APIs, and services&lt;/li>
+&lt;li>Use tools and execute functions&lt;/li>
+&lt;li>Interact with local files and applications&lt;/li>
+&lt;li>Connect to business systems securely&lt;/li>
+&lt;/ul>
+&lt;h4 id="key-components">key components&lt;/h4>
+&lt;h4 id="ㅤ-2">ㅤ&lt;/h4>
+&lt;p>&lt;strong>MCP Server&lt;/strong>&lt;br>
+~ Lightweight programs that expose specific capabilities&lt;br>
+~ Can provide access to databases, file systems, APIs, or tools&lt;br>
+~ Run locally or remotely&lt;br>
+~ Examples: database connectors, file system access, web scrapers&lt;/p></description></item><item><title>Obsidian + CLI with RAG</title><link>https://krzysi3k.github.io/post/2025/obsidian-with-rag/</link><pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate><guid>https://krzysi3k.github.io/post/2025/obsidian-with-rag/</guid><description>&lt;h4 id="ㅤ">ㅤ&lt;/h4>
 &lt;h4 id="ㅤ-1">ㅤ&lt;/h4>
 &lt;h2 id="integrate-ai-cli-with-obsidian-knowledgebase">Integrate AI CLI with Obsidian knowledgebase&lt;/h2>
 &lt;h3 id="robust-cli-with-rag-capabilities">robust CLI with RAG capabilities&lt;/h3>
